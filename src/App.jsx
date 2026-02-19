@@ -488,6 +488,11 @@ const createSpeakFunction = (setSpeakingCard) => {
         return
       }
 
+      // Stop any currently speaking voice to avoid conflicts
+      if (window.speechSynthesis.speaking) {
+        window.speechSynthesis.cancel()
+      }
+
       const selectedVoice = findMaleVoice(voices, langCode)
       
       // Log for debugging
@@ -497,32 +502,58 @@ const createSpeakFunction = (setSpeakingCard) => {
         utterance.voice = selectedVoice
         utterance.lang = selectedVoice.lang // Use the voice's native language
       } else {
-        // If no voice found, still try with the language code
-        utterance.lang = langCode
-        console.warn(`No voice found for ${languageName} (${langCode}), using default`)
+        // If no voice found, try with language code and fallback variants
+        const langPrefix = langCode.split('-')[0]
+        
+        // Try to find any voice with matching language prefix
+        const fallbackVoice = voices.find(v => 
+          v.lang.startsWith(langPrefix) || 
+          v.lang === langCode ||
+          v.lang.split('-')[0] === langPrefix
+        )
+        
+        if (fallbackVoice) {
+          utterance.voice = fallbackVoice
+          utterance.lang = fallbackVoice.lang
+          console.log(`Using fallback voice for ${languageName}:`, fallbackVoice.name)
+        } else {
+          // Last resort: use the language code and let browser choose
+          utterance.lang = langCode
+          console.warn(`No voice found for ${languageName} (${langCode}), using browser default`)
+        }
       }
 
       // Set voice properties for better quality and masculine sound
-      utterance.rate = 0.85 // Slightly slower for clarity
+      utterance.rate = 0.9 // Natural speaking rate
       
-      // ULTRA LOW PITCH for maximum masculine sound
-      // Always use minimum pitch (0.5) unless we're 100% sure it's a male voice
-      if (selectedVoice) {
-        const voiceName = selectedVoice.name.toLowerCase()
-        // Only use higher pitch if we're absolutely certain it's male
-        if ((selectedVoice.gender === 'male' || selectedVoice.gender === 'M' || selectedVoice.gender === 'Male') &&
-            (voiceName.includes('male') || voiceName.includes('david') || 
-             voiceName.includes('mark') || voiceName.includes('thomas') ||
-             voiceName.includes('james') || voiceName.includes('john') ||
-             voiceName.includes('microsoft david') || voiceName.includes('microsoft mark'))) {
-          utterance.pitch = 0.7 // Still low for male voice
+      // Smart pitch adjustment - avoid too low pitch that sounds rough
+      const voiceToCheck = selectedVoice || (utterance.voice || null)
+      if (voiceToCheck) {
+        const voiceName = voiceToCheck.name.toLowerCase()
+        // Check if it's explicitly a male voice
+        const isExplicitMale = voiceToCheck.gender === 'male' || 
+                               voiceToCheck.gender === 'M' || 
+                               voiceToCheck.gender === 'Male' ||
+                               voiceName.includes('male') || 
+                               voiceName.includes('david') || 
+                               voiceName.includes('mark') || 
+                               voiceName.includes('thomas') ||
+                               voiceName.includes('james') || 
+                               voiceName.includes('john') ||
+                               voiceName.includes('microsoft david') || 
+                               voiceName.includes('microsoft mark') ||
+                               (voiceName.includes('google') && voiceName.includes('male'))
+        
+        if (isExplicitMale) {
+          // For confirmed male voices, use natural low pitch (not too low)
+          utterance.pitch = 0.8 // Natural male pitch
         } else {
-          // For ANY uncertain voice, use absolute minimum pitch
-          utterance.pitch = 0.5 // Minimum pitch (deepest possible)
+          // For uncertain voices, use slightly lower pitch but not minimum
+          utterance.pitch = 0.75 // Lower but not rough
         }
       } else {
-        // No voice selected, use absolute minimum pitch
-        utterance.pitch = 0.5 // Deepest possible
+        // No voice selected, use moderate low pitch
+        utterance.pitch = 0.75 // Lower but not minimum to avoid roughness
       }
       
       utterance.volume = 1.0
@@ -536,28 +567,86 @@ const createSpeakFunction = (setSpeakingCard) => {
       }
 
       utterance.onerror = (event) => {
-        console.error('Speech synthesis error:', event)
+        console.error('Speech synthesis error:', event.error, 'for language:', languageName)
         setSpeakingCard(null)
-        // Try with a fallback voice if error occurs
-        if (event.error === 'language-not-supported' || event.error === 'not-allowed') {
-          const fallbackVoice = voices.find(v => 
-            v.lang.startsWith('en') && 
-            (v.gender === 'male' || v.name.toLowerCase().includes('david') || 
-             v.name.toLowerCase().includes('mark') || v.name.toLowerCase().includes('thomas'))
-          )
-          if (fallbackVoice) {
-            const fallbackUtterance = new SpeechSynthesisUtterance(text)
-            fallbackUtterance.voice = fallbackVoice
-            fallbackUtterance.lang = fallbackVoice.lang
-            fallbackUtterance.rate = 0.85
-            fallbackUtterance.pitch = 0.5
-            fallbackUtterance.volume = 1.0
-            fallbackUtterance.onend = () => setSpeakingCard(null)
-            fallbackUtterance.onerror = () => setSpeakingCard(null)
-            window.speechSynthesis.speak(fallbackUtterance)
-            return
+        
+        // Try multiple fallback strategies
+        // Strategy 1: Try English male voice
+        const englishMaleVoice = voices.find(v => {
+          if (!v.lang.startsWith('en')) return false
+          const name = v.name.toLowerCase()
+          return v.gender === 'male' || 
+                 v.gender === 'M' || 
+                 name.includes('david') || 
+                 name.includes('mark') || 
+                 name.includes('thomas') ||
+                 name.includes('james') ||
+                 name.includes('john') ||
+                 (name.includes('google') && name.includes('male')) ||
+                 (name.includes('microsoft') && (name.includes('david') || name.includes('mark')))
+        })
+        
+        if (englishMaleVoice) {
+          console.log('Using English fallback voice:', englishMaleVoice.name)
+          const fallbackUtterance = new SpeechSynthesisUtterance(text)
+          fallbackUtterance.voice = englishMaleVoice
+          fallbackUtterance.lang = englishMaleVoice.lang
+          fallbackUtterance.rate = 0.9
+          // Use natural male pitch for English fallback
+          const fallbackName = englishMaleVoice.name.toLowerCase()
+          const isMaleFallback = englishMaleVoice.gender === 'male' || 
+                                 englishMaleVoice.gender === 'M' ||
+                                 fallbackName.includes('david') || 
+                                 fallbackName.includes('mark') ||
+                                 fallbackName.includes('thomas')
+          fallbackUtterance.pitch = isMaleFallback ? 0.8 : 0.75
+          fallbackUtterance.volume = 1.0
+          fallbackUtterance.onend = () => setSpeakingCard(null)
+          fallbackUtterance.onerror = () => {
+            console.error('Fallback voice also failed')
+            setSpeakingCard(null)
           }
+          window.speechSynthesis.speak(fallbackUtterance)
+          return
         }
+        
+        // Strategy 2: Try any English voice
+        const anyEnglishVoice = voices.find(v => v.lang.startsWith('en'))
+        if (anyEnglishVoice) {
+          console.log('Using any English voice:', anyEnglishVoice.name)
+          const fallbackUtterance = new SpeechSynthesisUtterance(text)
+          fallbackUtterance.voice = anyEnglishVoice
+          fallbackUtterance.lang = anyEnglishVoice.lang
+          fallbackUtterance.rate = 0.9
+          // Check if this English voice is male
+          const anyEnglishName = anyEnglishVoice.name.toLowerCase()
+          const isAnyEnglishMale = anyEnglishVoice.gender === 'male' || 
+                                    anyEnglishVoice.gender === 'M' ||
+                                    anyEnglishName.includes('david') || 
+                                    anyEnglishName.includes('mark') ||
+                                    anyEnglishName.includes('thomas')
+          fallbackUtterance.pitch = isAnyEnglishMale ? 0.8 : 0.75
+          fallbackUtterance.volume = 1.0
+          fallbackUtterance.onend = () => setSpeakingCard(null)
+          fallbackUtterance.onerror = () => setSpeakingCard(null)
+          window.speechSynthesis.speak(fallbackUtterance)
+          return
+        }
+        
+        // Strategy 3: Try default voice with language code
+        console.log('Trying default voice with language code:', langCode)
+        const defaultUtterance = new SpeechSynthesisUtterance(text)
+        defaultUtterance.lang = langCode
+        defaultUtterance.rate = 0.9
+        // Use moderate pitch for default (not too low to avoid roughness)
+        defaultUtterance.pitch = 0.75
+        defaultUtterance.volume = 1.0
+        defaultUtterance.onend = () => setSpeakingCard(null)
+        defaultUtterance.onerror = () => {
+          console.error('All fallback strategies failed for:', languageName)
+          setSpeakingCard(null)
+        }
+        window.speechSynthesis.speak(defaultUtterance)
       }
 
       // Speak
