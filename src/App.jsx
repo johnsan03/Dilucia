@@ -119,31 +119,10 @@ const languages = [
   { name: 'Inuktitut', text: 'Nagligivagit, DILU', flag: '🇨🇦' },
   { name: 'Cree', text: 'Kisâkihitin, DILU', flag: '🇨🇦' },
   { name: 'Greenlandic', text: 'Asavakkit, DILU', flag: '🇬🇱' },
-  { name: 'Basque', text: 'Maite Zaitut, DILU', flag: '🇪🇸' },
-  { name: 'Catalan', text: 'T\'Estimo, DILU', flag: '🇪🇸' },
-  { name: 'Galician', text: 'Quérote, DILU', flag: '🇪🇸' },
-  { name: 'Welsh', text: 'Rwy\'n Dy Garu Di, DILU', flag: '🇬🇧' },
-  { name: 'Irish', text: 'Is Breá Liom Tú, DILU', flag: '🇮🇪' },
-  { name: 'Scottish Gaelic', text: 'Tha Gràdh Agam Ort, DILU', flag: '🇬🇧' },
-  { name: 'Breton', text: 'Da Garout A Ran, DILU', flag: '🇫🇷' },
-  { name: 'Corsican', text: 'Ti Tengu Caru, DILU', flag: '🇫🇷' },
-  { name: 'Sardinian', text: 'Ti Amo, DILU', flag: '🇮🇹' },
-  { name: 'Frisian', text: 'Ik Hâld Fan Dy, DILU', flag: '🇳🇱' },
-  { name: 'Luxembourgish', text: 'DILU, Ech Hunn Dech Gär', flag: '🇱🇺' },
-  { name: 'Maltese', text: 'DILU, Inħobbok', flag: '🇲🇹' },
-  { name: 'Icelandic', text: 'DILU, Ég Elska Þig', flag: '🇮🇸' },
-  { name: 'Faroese', text: 'DILU, Eg Elski Teg', flag: '🇫🇴' },
-  { name: 'Albanian', text: 'DILU, Të Dua', flag: '🇦🇱' },
-  { name: 'Macedonian', text: 'DILU, Те Сакам', flag: '🇲🇰' },
-  { name: 'Bosnian', text: 'DILU, Volim Te', flag: '🇧🇦' },
-  { name: 'Belarusian', text: 'DILU, Я Цябе Кахаю', flag: '🇧🇾' },
-  { name: 'Moldovan', text: 'DILU, Te Iubesc', flag: '🇲🇩' },
-  { name: 'Kazakh', text: 'DILU, Мен Сені Жақсы Көремін', flag: '🇰🇿' },
   { name: 'Kyrgyz', text: 'Мен Сени Сүйөм, ДИЛУ', flag: '🇰🇬' },
   { name: 'Uzbek', text: 'Men Seni Sevaman, DILU', flag: '🇺🇿' },
   { name: 'Tajik', text: 'Ман Туро Дӯст Медорам, ДИЛУ', flag: '🇹🇯' },
   { name: 'Turkmen', text: 'Men Seni Söýýärin, DILU', flag: '🇹🇲' },
-  { name: 'Mongolian', text: 'Би Чамд Хайртай, ДИЛУ', flag: '🇲🇳' },
   { name: 'Tibetan', text: 'ང་ཁྱེད་རང་ལ་དགའ་པོ་ཡོད, DILU', flag: '🇨🇳' },
   { name: 'Uyghur', text: 'مەن سىزنى سۆيىمەن, DILU', flag: '🇨🇳' },
   { name: 'Cantonese', text: '我愛你，DILU', flag: '🇭🇰' },
@@ -162,31 +141,7 @@ const languages = [
   { name: 'Pangasinan', text: 'Inararo Taka, DILU', flag: '🇵🇭' },
   { name: 'Hiligaynon', text: 'Palangga Ko Ikaw, DILU', flag: '🇵🇭' },
   { name: 'Chavacano', text: 'Ta Ama Yo Contigo, DILU', flag: '🇵🇭' },
-  { name: 'Lao', text: 'DILU, ຂ້ອຍຮັກເຈົ້າ', flag: '🇱🇦' },
-  { name: 'Khmer', text: 'DILU, ខ្ញុំស្រលាញ់អ្នក', flag: '🇰🇭' },
-  { name: 'Burmese', text: 'DILU, ငါမင်းကိုချစ်တယ်', flag: '🇲🇲' },
-  { name: 'Sinhala', text: 'DILU, මම ඔයාට ආදරෙයි', flag: '🇱🇰' },
-  { name: 'Nepali', text: 'DILU, म तिमीलाई माया गर्छु', flag: '🇳🇵' },
-  { name: 'Bengali', text: 'আমি তোমাকে ভালোবাসি, ডিলু', flag: '🇧🇩' },
-  { name: 'Tamil', text: 'நான் உன்னை காதலிக்கிறேன், டிலு', flag: '🇮🇳' },
-  { name: 'Telugu', text: 'నేను నిన్ను ప్రేమిస్తున్నాను, డిలు', flag: '🇮🇳' },
-  { name: 'Marathi', text: 'मी तुझ्यावर प्रेम करतो, डिलू', flag: '🇮🇳' },
-  { name: 'Gujarati', text: 'હું તને પ્રેમ કરું છું, ડિલુ', flag: '🇮🇳' },
-  { name: 'Punjabi', text: 'ਮੈਂ ਤੁਹਾਨੂੰ ਪਿਆਰ ਕਰਦਾ ਹਾਂ, ਡਿਲੂ', flag: '🇮🇳' },
-  { name: 'Kannada', text: 'ನಾನು ನಿನ್ನನ್ನು ಪ್ರೀತಿಸುತ್ತೇನೆ, ಡಿಲು', flag: '🇮🇳' },
-  { name: 'Malayalam', text: 'ഞാൻ നിന്നെ സ്നേഹിക്കുന്നു, ഡിലു', flag: '🇮🇳' },
-  { name: 'Odia', text: 'ମୁଁ ତୁମକୁ ଭଲ ପାଏ, DILU', flag: '🇮🇳' },
-  { name: 'Kashmiri', text: 'मे छु तोह्य हित, DILU', flag: '🇮🇳' },
-  { name: 'Sindhi', text: 'مان توکي پيار ڪيان ٿو, DILU', flag: '🇵🇰' },
-  { name: 'Pashto', text: 'زه تا سره مینه لرم, DILU', flag: '🇦🇫' },
-  { name: 'Dari', text: 'من تور سره مینه لرم, DILU', flag: '🇦🇫' },
   { name: 'Kurdish', text: 'Ez Ji Te Hez Dikim, DILU', flag: '🇮🇶' },
-  { name: 'Azerbaijani', text: 'DILU, Səni Sevirəm', flag: '🇦🇿' },
-  { name: 'Georgian', text: 'DILU, მიყვარხარ', flag: '🇬🇪' },
-  { name: 'Armenian', text: 'DILU, Ես քեզ սիրում եմ', flag: '🇦🇲' },
-  { name: 'Xhosa', text: 'DILU, Ndiyakuthanda', flag: '🇿🇦' },
-  { name: 'Zulu', text: 'DILU, Ngiyakuthanda', flag: '🇿🇦' },
-  { name: 'Afrikaans', text: 'DILU, Ek Het Jou Lief', flag: '🇿🇦' },
   { name: 'Aymara', text: 'Munasqayki, DILU', flag: '🇧🇴' },
   { name: 'Mapudungun', text: 'Inche Ngey Mülen, DILU', flag: '🇨🇱' },
   { name: 'Ojibwe', text: 'Gizhawenimin, DILU', flag: '🇨🇦' },
@@ -202,6 +157,16 @@ const languages = [
   { name: 'Elvish (Quenya)', text: 'Melinyel, DILU', flag: '🧝' },
 
 ]
+
+// Remove duplicates from languages array (keep first occurrence)
+const uniqueLanguages = []
+const seenNames = new Set()
+for (const lang of languages) {
+  if (!seenNames.has(lang.name)) {
+    seenNames.add(lang.name)
+    uniqueLanguages.push(lang)
+  }
+}
 
 // Language code mapping for speech synthesis
 const languageCodes = {
@@ -382,24 +347,9 @@ const createSpeakFunction = (setSpeakingCard) => {
     const langCode = languageCodes[languageName] || 'en-US'
     utterance.lang = langCode
 
-    // Function to find male voice - more aggressive approach
+    // Function to find male voice - ULTRA AGGRESSIVE approach
     const findMaleVoice = (voices, langCode) => {
-      // First, try to find voices matching the language
-      const langPrefix = langCode.split('-')[0]
-      let langVoices = voices.filter(voice => 
-        voice.lang.startsWith(langPrefix) || 
-        voice.lang === langCode ||
-        voice.lang.split('-')[0] === langPrefix
-      )
-
-      // If no language-specific voices, try broader search
-      if (langVoices.length === 0) {
-        langVoices = voices.filter(voice => 
-          voice.lang.includes(langPrefix)
-        )
-      }
-
-      // Female voice indicators to exclude (expanded list)
+      // Comprehensive female voice exclusion list
       const femaleIndicators = [
         'female', 'woman', 'woman\'s', 'women', 'girl', 'samantha', 
         'susan', 'karen', 'kate', 'victoria', 'zira', 'helen', 'hazel',
@@ -407,78 +357,62 @@ const createSpeakFunction = (setSpeakingCard) => {
         'sarah', 'anna', 'elena', 'yuna', 'yumi', 'mei', 'sinji', 'xiaoyan',
         'xiaoxiao', 'xiaoyi', 'yating', 'zhiwei', 'zhiyu', 'xiaoxuan',
         'marisol', 'soledad', 'monica', 'paulina', 'damaris', 'katya',
-        'milena', 'alice', 'fiona', 'jill', 'samantha', 'tessa', 'veena',
-        'zira', 'helen', 'hazel', 'susan', 'karen', 'kate', 'victoria',
-        'aurelie', 'audrey', 'amelie', 'thomas', 'thomas enhanced', 'samantha',
-        'samantha premium', 'samantha compact', 'samantha premium', 'samantha',
-        'siri', 'siri female', 'google uk english female', 'google us english female',
+        'milena', 'alice', 'fiona', 'jill', 'aurelie', 'audrey', 'amelie',
+        'siri female', 'google uk english female', 'google us english female',
         'google australian english female', 'google indian english female',
         'microsoft zira', 'microsoft hazel', 'microsoft helen', 'microsoft heera',
-        'microsoft kalpana', 'microsoft heera', 'microsoft heera', 'microsoft heera',
-        'microsoft heera', 'microsoft heera', 'microsoft heera', 'microsoft heera'
+        'microsoft kalpana', 'siri', 'siri voice', 'siri voice (enhanced)'
       ]
 
-      // Male voice indicators to prioritize (expanded list)
+      // Comprehensive male voice indicators
       const maleIndicators = [
         'male', 'man', 'men', 'boy', 'david', 'james', 'john', 'thomas',
         'daniel', 'mark', 'paul', 'steven', 'stephen', 'miguel', 'carlos',
         'juan', 'pablo', 'diego', 'pierre', 'jean', 'antoine', 'marco',
-        'giovanni', 'luca', 'alessandro', 'hans', 'klaus', 'thomas',
-        'igor', 'ivan', 'dmitri', 'alexei', 'yuki', 'kenji', 'takeshi',
-        'wei', 'ming', 'chen', 'li', 'seung', 'min', 'joon', 'ahmed',
-        'mohammed', 'ali', 'omar', 'raj', 'vikram', 'arjun', 'rahul',
-        'tom', 'alex', 'mike', 'chris', 'brian', 'kevin', 'ryan',
-        'jose', 'luis', 'antonio', 'manuel', 'francois', 'philippe',
-        'andreas', 'wolfgang', 'jan', 'piotr', 'tomasz', 'jakub',
-        'nikolai', 'sergei', 'vladimir', 'yuri', 'alexander', 'michael',
-        'robert', 'william', 'richard', 'joseph', 'charles', 'george',
-        'frank', 'harold', 'raymond', 'roger', 'lawrence', 'wayne',
-        'roy', 'ralph', 'eugene', 'arthur', 'louis', 'jerry', 'henry',
-        'microsoft david', 'microsoft mark', 'google uk english male',
-        'google us english male', 'google australian english male',
-        'google indian english male', 'siri male', 'siri male voice',
-        'alex', 'bruce', 'fred', 'junior', 'ralph', 'reed', 'robin',
-        'albert', 'bad news', 'bahh', 'boing', 'bubbles', 'cellos',
-        'deranged', 'good news', 'hysterical', 'pipe organ', 'trinoids',
-        'whisper', 'zarvox', 'lee', 'tian-tian', 'ting-ting', 'sin-ji',
-        'yuna', 'yuna', 'kyoko', 'kyoko', 'kyoko', 'kyoko', 'kyoko'
+        'giovanni', 'luca', 'alessandro', 'hans', 'klaus', 'igor', 'ivan',
+        'dmitri', 'alexei', 'yuki', 'kenji', 'takeshi', 'wei', 'ming',
+        'chen', 'li', 'seung', 'joon', 'ahmed', 'mohammed', 'ali', 'omar',
+        'raj', 'vikram', 'arjun', 'rahul', 'tom', 'alex', 'mike', 'chris',
+        'brian', 'kevin', 'ryan', 'jose', 'luis', 'antonio', 'manuel',
+        'francois', 'philippe', 'andreas', 'wolfgang', 'jan', 'piotr',
+        'tomasz', 'jakub', 'nikolai', 'sergei', 'vladimir', 'yuri',
+        'alexander', 'michael', 'robert', 'william', 'richard', 'joseph',
+        'charles', 'george', 'frank', 'harold', 'raymond', 'roger',
+        'lawrence', 'wayne', 'roy', 'ralph', 'eugene', 'arthur', 'louis',
+        'jerry', 'henry', 'microsoft david', 'microsoft mark',
+        'google uk english male', 'google us english male',
+        'google australian english male', 'google indian english male',
+        'siri male', 'siri male voice', 'alex', 'bruce', 'fred', 'junior',
+        'reed', 'robin', 'lee'
       ]
 
-      // Filter out female voices first - very aggressive
-      const nonFemaleVoices = langVoices.filter(voice => {
+      // STEP 1: Find ALL male voices in the entire system first
+      const allSystemMaleVoices = voices.filter(voice => {
         const name = voice.name.toLowerCase()
-        // Check if voice has gender property (some browsers support this)
-        if (voice.gender === 'female' || voice.gender === 'F' || voice.gender === 'Female') {
-          return false
-        }
-        // Check name for female indicators
-        const isFemale = femaleIndicators.some(indicator => name.includes(indicator))
-        return !isFemale
-      })
-
-      // Look for explicitly male voices (check gender property first)
-      const maleVoices = nonFemaleVoices.filter(voice => {
-        // First check gender property if available
+        // Check gender property first
         if (voice.gender === 'male' || voice.gender === 'M' || voice.gender === 'Male') {
           return true
         }
-        // Then check name for male indicators
-        const name = voice.name.toLowerCase()
-        return maleIndicators.some(indicator => name.includes(indicator))
+        // Exclude if explicitly female
+        if (voice.gender === 'female' || voice.gender === 'F' || voice.gender === 'Female') {
+          return false
+        }
+        // Check name patterns
+        const isFemale = femaleIndicators.some(indicator => name.includes(indicator))
+        const isMale = maleIndicators.some(indicator => name.includes(indicator))
+        return !isFemale && isMale
       })
 
-      // If we found male voices, use the first one
-      if (maleVoices.length > 0) {
-        return maleVoices[0]
-      }
+      // STEP 2: Try to find language-specific male voice
+      const langPrefix = langCode.split('-')[0]
+      let langVoices = voices.filter(voice => 
+        voice.lang.startsWith(langPrefix) || 
+        voice.lang === langCode ||
+        voice.lang.split('-')[0] === langPrefix
+      )
 
-      // If no explicitly male voice but we have non-female voices, use those
-      if (nonFemaleVoices.length > 0) {
-        return nonFemaleVoices[0]
-      }
-
-      // If no language-specific voices, try to find ANY male voice in the system
-      const allMaleVoices = voices.filter(voice => {
+      // Filter language-specific male voices
+      const langMaleVoices = langVoices.filter(voice => {
         const name = voice.name.toLowerCase()
         if (voice.gender === 'male' || voice.gender === 'M' || voice.gender === 'Male') {
           return true
@@ -488,29 +422,45 @@ const createSpeakFunction = (setSpeakingCard) => {
         }
         const isFemale = femaleIndicators.some(indicator => name.includes(indicator))
         const isMale = maleIndicators.some(indicator => name.includes(indicator))
-        return !isFemale && (isMale || !name.includes('female'))
+        return !isFemale && isMale
       })
 
-      if (allMaleVoices.length > 0) {
-        // Prefer English male voices as fallback
-        const englishMale = allMaleVoices.find(v => v.lang.startsWith('en'))
-        if (englishMale) return englishMale
-        return allMaleVoices[0]
+      // Priority 1: Language-specific male voice
+      if (langMaleVoices.length > 0) {
+        return langMaleVoices[0]
       }
 
-      // Last resort: use any voice for that language (but we'll lower the pitch)
-      if (langVoices.length > 0) {
-        return langVoices[0]
-      }
-
-      // Final fallback: any non-female voice
-      const anyNonFemale = voices.find(voice => {
+      // Priority 2: Language-specific non-female voice (exclude all female indicators)
+      const langNonFemale = langVoices.filter(voice => {
         const name = voice.name.toLowerCase()
-        if (voice.gender === 'female' || voice.gender === 'F') return false
+        if (voice.gender === 'female' || voice.gender === 'F' || voice.gender === 'Female') {
+          return false
+        }
         return !femaleIndicators.some(indicator => name.includes(indicator))
       })
-      
-      return anyNonFemale || null
+      if (langNonFemale.length > 0) {
+        return langNonFemale[0]
+      }
+
+      // Priority 3: ANY male voice from system (prefer English)
+      if (allSystemMaleVoices.length > 0) {
+        const englishMale = allSystemMaleVoices.find(v => v.lang.startsWith('en'))
+        if (englishMale) return englishMale
+        return allSystemMaleVoices[0]
+      }
+
+      // Priority 4: Any non-female voice from system
+      const anyNonFemale = voices.find(voice => {
+        const name = voice.name.toLowerCase()
+        if (voice.gender === 'female' || voice.gender === 'F' || voice.gender === 'Female') {
+          return false
+        }
+        return !femaleIndicators.some(indicator => name.includes(indicator))
+      })
+      if (anyNonFemale) return anyNonFemale
+
+      // Last resort: return null (we'll use minimum pitch)
+      return null
     }
 
     // Get voices
@@ -555,22 +505,24 @@ const createSpeakFunction = (setSpeakingCard) => {
       // Set voice properties for better quality and masculine sound
       utterance.rate = 0.85 // Slightly slower for clarity
       
-      // Very aggressive pitch lowering for masculine sound
+      // ULTRA LOW PITCH for maximum masculine sound
+      // Always use minimum pitch (0.5) unless we're 100% sure it's a male voice
       if (selectedVoice) {
         const voiceName = selectedVoice.name.toLowerCase()
-        // If it's explicitly a male voice, use moderate pitch
-        if (selectedVoice.gender === 'male' || selectedVoice.gender === 'M' || 
-            voiceName.includes('male') || voiceName.includes('david') || 
-            voiceName.includes('mark') || voiceName.includes('thomas') ||
-            voiceName.includes('james') || voiceName.includes('john')) {
-          utterance.pitch = 0.75
+        // Only use higher pitch if we're absolutely certain it's male
+        if ((selectedVoice.gender === 'male' || selectedVoice.gender === 'M' || selectedVoice.gender === 'Male') &&
+            (voiceName.includes('male') || voiceName.includes('david') || 
+             voiceName.includes('mark') || voiceName.includes('thomas') ||
+             voiceName.includes('james') || voiceName.includes('john') ||
+             voiceName.includes('microsoft david') || voiceName.includes('microsoft mark'))) {
+          utterance.pitch = 0.7 // Still low for male voice
         } else {
-          // For uncertain voices, lower pitch significantly
-          utterance.pitch = 0.5 // Very low pitch (minimum is around 0.5)
+          // For ANY uncertain voice, use absolute minimum pitch
+          utterance.pitch = 0.5 // Minimum pitch (deepest possible)
         }
       } else {
-        // No voice selected, use very low pitch to sound more masculine
-        utterance.pitch = 0.5
+        // No voice selected, use absolute minimum pitch
+        utterance.pitch = 0.5 // Deepest possible
       }
       
       utterance.volume = 1.0
@@ -912,6 +864,7 @@ function App() {
           </div>
           <p className="subtitle">
             <span className="subtitle-word">Happy</span>{' '}
+            <span className="subtitle-word">Advanced</span>{' '}
             <span className="subtitle-word">Birthday</span>{' '}
             <span className="subtitle-word">My</span>{' '}
             <span className="subtitle-word">Love!</span>
@@ -922,7 +875,7 @@ function App() {
         </div>
 
         <div className="languages-grid">
-          {languages.map((lang, index) => {
+          {uniqueLanguages.map((lang, index) => {
             const isSpeaking = speakingCard === index
             const speakText = createSpeakFunction(setSpeakingCard)
             
