@@ -344,7 +344,9 @@ const createSpeakFunction = (setSpeakingCard) => {
     const utterance = new SpeechSynthesisUtterance(text)
     
     // Set language code
-    const langCode = languageCodes[languageName] || 'en-US'
+    let langCode = languageCodes[languageName] || 'en-US'
+    
+    // For Sinhala, we'll try both 'si' and 'si-LK' in the fallback logic
     utterance.lang = langCode
 
     // Function to find male voice - ULTRA AGGRESSIVE approach
@@ -506,20 +508,36 @@ const createSpeakFunction = (setSpeakingCard) => {
         const langPrefix = langCode.split('-')[0]
         
         // Try to find any voice with matching language prefix
-        const fallbackVoice = voices.find(v => 
+        let fallbackVoice = voices.find(v => 
           v.lang.startsWith(langPrefix) || 
           v.lang === langCode ||
           v.lang.split('-')[0] === langPrefix
         )
+        
+        // Special handling for languages that might not have voices
+        // Try alternative language codes (without country code)
+        if (!fallbackVoice && langCode.includes('-')) {
+          fallbackVoice = voices.find(v => v.lang === langPrefix || v.lang.startsWith(langPrefix + '-'))
+        }
         
         if (fallbackVoice) {
           utterance.voice = fallbackVoice
           utterance.lang = fallbackVoice.lang
           console.log(`Using fallback voice for ${languageName}:`, fallbackVoice.name)
         } else {
-          // Last resort: use the language code and let browser choose
-          utterance.lang = langCode
-          console.warn(`No voice found for ${languageName} (${langCode}), using browser default`)
+          // Try setting language code with and without country code
+          // For Sinhala, try 'si' first as it's more widely supported
+          if (languageName === 'Sinhala') {
+            utterance.lang = 'si' // Try 'si' first for Sinhala
+            console.log(`No Sinhala voice found, trying with language code: si`)
+          } else if (langCode.includes('-')) {
+            // For other languages, try language prefix first (without country code)
+            utterance.lang = langPrefix
+            console.log(`No voice found for ${languageName}, trying with language prefix: ${langPrefix}`)
+          } else {
+            utterance.lang = langCode
+            console.warn(`No voice found for ${languageName} (${langCode}), using browser default`)
+          }
         }
       }
 
@@ -568,6 +586,32 @@ const createSpeakFunction = (setSpeakingCard) => {
 
       utterance.onerror = (event) => {
         console.error('Speech synthesis error:', event.error, 'for language:', languageName)
+        
+        // Special handling for Sinhala and other languages that might need different language codes
+        if (languageName === 'Sinhala' && langCode === 'si-LK') {
+          console.log('Sinhala failed, trying with just "si" language code')
+          const sinhalaRetry = new SpeechSynthesisUtterance(text)
+          sinhalaRetry.lang = 'si' // Try without country code
+          sinhalaRetry.rate = 0.9
+          sinhalaRetry.pitch = 0.75
+          sinhalaRetry.volume = 1.0
+          sinhalaRetry.onend = () => setSpeakingCard(null)
+          sinhalaRetry.onerror = () => {
+            console.error('Sinhala retry also failed, trying English fallback')
+            setSpeakingCard(null)
+            // Continue to English fallback below
+          }
+          
+          // Try speaking with 'si' code
+          try {
+            window.speechSynthesis.speak(sinhalaRetry)
+            return
+          } catch (err) {
+            console.error('Sinhala retry error:', err)
+            // Continue to fallback strategies
+          }
+        }
+        
         setSpeakingCard(null)
         
         // Try multiple fallback strategies
@@ -633,18 +677,36 @@ const createSpeakFunction = (setSpeakingCard) => {
           return
         }
         
-        // Strategy 3: Try default voice with language code
-        console.log('Trying default voice with language code:', langCode)
+        // Strategy 3: Try default voice with language code (try both with and without country code)
+        const langPrefix = langCode.split('-')[0]
+        console.log('Trying default voice with language codes:', langCode, 'and', langPrefix)
+        
+        // Try with full language code first
         const defaultUtterance = new SpeechSynthesisUtterance(text)
         defaultUtterance.lang = langCode
         defaultUtterance.rate = 0.9
-        // Use moderate pitch for default (not too low to avoid roughness)
         defaultUtterance.pitch = 0.75
         defaultUtterance.volume = 1.0
         defaultUtterance.onend = () => setSpeakingCard(null)
         defaultUtterance.onerror = () => {
-          console.error('All fallback strategies failed for:', languageName)
-          setSpeakingCard(null)
+          // If full code fails, try with just language prefix
+          if (langCode !== langPrefix) {
+            console.log('Trying with language prefix only:', langPrefix)
+            const prefixUtterance = new SpeechSynthesisUtterance(text)
+            prefixUtterance.lang = langPrefix
+            prefixUtterance.rate = 0.9
+            prefixUtterance.pitch = 0.75
+            prefixUtterance.volume = 1.0
+            prefixUtterance.onend = () => setSpeakingCard(null)
+            prefixUtterance.onerror = () => {
+              console.error('All fallback strategies failed for:', languageName)
+              setSpeakingCard(null)
+            }
+            window.speechSynthesis.speak(prefixUtterance)
+          } else {
+            console.error('All fallback strategies failed for:', languageName)
+            setSpeakingCard(null)
+          }
         }
         window.speechSynthesis.speak(defaultUtterance)
       }
